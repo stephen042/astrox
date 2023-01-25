@@ -149,7 +149,9 @@ if (isset($_POST['btnSubmitCB'])) {
   }
 
   if (!empty($messagebox)) {
-    $sql_insert_data = "INSERT INTO `user` (`id`,`name`,`phoneNum`, `email`, `country`, `message`,`radio_selection`) VALUES ('' , '$CBName', '$CBContactNumber', '$CBEmail', '$CBCountry11CB', '$CBMessage','$CBRadiochk')";
+    // print_r($CBCountry11c);
+    // die();
+    $sql_insert_data = "INSERT INTO `user` (`id`,`name`,`phoneNum`, `email`, `country`, `message`,`radio_selection`) VALUES ('' , '$CBName', '$CBContactNumber', '$CBEmail', '$CBCountry11c', '$CBMessage','$CBRadiochk')";
 
     $inserted_data = mysqli_query($conn, $sql_insert_data);
     if ($inserted_data) {
@@ -419,7 +421,7 @@ if (isset($_POST['btnSubmitFundamentals'])) {
   $CBCountry11CB = mysqli_real_escape_string($conn, $_POST['CBCountry11CB']);
   $messageFundamentals = mysqli_real_escape_string($conn, $_POST['messageFundamentals']);
   $chkPrefCallBackFundamentals = mysqli_real_escape_string($conn, $_POST['chkPrefCallBackFundamentals']);
-
+  
    // check for name 
   if (empty($nameFundamentals)) {
     $error['nameFundamentals'] = "Name is required";
@@ -521,11 +523,15 @@ if (isset($_POST['btn_login'])) {
             $_SESSION["userName"] =  $fetch["name"];
             $_SESSION["email"] =$fetch["email"];
             $_SESSION["id"] =$fetch["id"];
-            //  $password = $_SESSION['password'];
+            $_SESSION['auth']  = $fetch["auth"];
+            if (!empty($_SESSION['auth'])) {
+              header("location: admin/pages/dashboard.php");
+             }else{
+              $location = 'user/pages/dashboard.php';
+              header("location: $location");
+             }
             //  $messagebox = "login successful";
             //  echo ("<script>window.alert('$messagebox')</script>");
-             $location = 'user\dashborad.php';
-             header("location: $location");
            }else{
             // $messagebox = "Invalid Login Details";
             $location = 'logine333.php';

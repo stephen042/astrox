@@ -1,28 +1,14 @@
 <?php
 session_start();
-// require_once 'sign-out.php';
-require_once '../user-handler.php';
-require_once 'config.php';
+include_once "..\../config\config.php";
 
-if (!empty($_SESSION['email'])) {
-  $location = 'http://localhost/www.astrofxc.com/logine333.php';
-  header("location: $location");
-  exit();
-}
-?>  
-
-
+?>
 <!DOCTYPE html>
 <html lang="en">
 
+
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-
-
-
-<!-- head start -->
-<?php
-require_once '../includes/header.php';
-?>
+<?php include_once "../includes/header.php"?>
 <!-- head end -->
 
 <body class="g-sidenav-show  bg-gray-200">

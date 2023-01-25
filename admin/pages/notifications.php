@@ -1,7 +1,9 @@
 <?php
 include_once "..\../config\config.php";
 include_once "..\../controller_user\dbcon.php";
-
+if (empty($_SESSION['auth'])) {
+  header("location: ..\../user/pages\dashboard.php");
+ }
 
 ?>
 
@@ -42,6 +44,14 @@ include_once "..\../controller_user\dbcon.php";
             <i class="material-icons opacity-10">receipt_long</i>
             </div>
             <span class="nav-link-text ms-1">Billing</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white " href="../pages/users.php">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <span class="nav-link-text ms-1">Users</span>
           </a>
         </li>
         <li class="nav-item">

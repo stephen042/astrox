@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2021 at 09:45 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 7.4.15
+-- Generation Time: Dec 15, 2021 at 08:44 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,15 +29,26 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `billing` (
   `id` int(255) NOT NULL,
-  `paypal` varchar(255) NOT NULL,
-  `cashApp` varchar(255) NOT NULL,
-  `bitcoin` varchar(255) NOT NULL,
-  `etherum` varchar(255) NOT NULL,
-  `litcoin` varchar(255) NOT NULL,
-  `Amount` int(11) NOT NULL,
+  `user_id` int(225) NOT NULL,
+  `method` varchar(255) NOT NULL,
+  `Amount` varchar(225) NOT NULL,
+  `paymentSlip` varchar(225) NOT NULL,
   `status` varchar(11) NOT NULL,
-  `created_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `billing`
+--
+
+INSERT INTO `billing` (`id`, `user_id`, `method`, `Amount`, `paymentSlip`, `status`, `created_at`) VALUES
+(12, 9, 'Bitcion', 'fwef', 'assets/order-images/63398f82e71b90a.png', 'declined', '2021-12-13 21:54:11'),
+(17, 9, 'Bitcion', '343', 'assets/order-images/6f2d855455fbe85.png', 'declined', '2021-12-13 22:02:53'),
+(20, 9, 'Bitcion', '3232', 'assets/order-images/67974a0e7dbab6c.png', 'declined', '2021-12-13 22:07:42'),
+(26, 9, 'Bitcion', '45', 'assets/order-images/43e6e0405440563.jpeg', 'declined', '2021-12-14 16:42:26'),
+(27, 9, 'Bitcion', '45', 'assets/order-images/a20d43d32e6c7dd.jpeg', '', '2021-12-14 22:42:35'),
+(28, 9, 'Bitcion', '45', 'assets/order-images/494010fbec6e774.jpeg', '', '2021-12-14 22:44:38'),
+(29, 9, 'Bitcion', '45', 'assets/order-images/db4633c698a2949.jpeg', '', '2021-12-14 22:45:25');
 
 -- --------------------------------------------------------
 
@@ -55,20 +66,21 @@ CREATE TABLE `user` (
   `message` varchar(255) NOT NULL,
   `radio_selection` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
+  `created_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6),
+  `auth` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `course`, `email`, `phoneNum`, `country`, `message`, `radio_selection`, `password`, `created_at`) VALUES
-(1, 'Ani Stephen 1', '', 'makuochukwu042@gmail.com', '09024452025', '', 'this is header for index', 'email', '', '2021-10-17 20:58:29.267033'),
-(2, 'Ani stephen 2', 'In Person', 'a@gmail.com', '090989098909890', 'United Kingdom', '', '', '', '2021-10-17 20:58:29.267033'),
-(3, 'Ani Stephen 3', 'In Person', 'makuo@gmail.com', '09024452025', 'United Kingdom', 'sghsjsjjkm', 'email', '', '2021-10-17 20:58:29.267033'),
-(5, 'Ani Stephen 4', 'Group Course', 'aaa@gmail.com', '0909875567890987', 'Turks and Caicos Islands', 'xcvbn  bvc', '2', '', '2021-10-17 20:58:29.267033'),
-(6, 'Ani Stephen 5', 'Online Course', 'a@gmail.com', '', 'United Kingdom', 'oiuytetyu', 'email', 'secret', '2021-10-20 01:30:58.148111'),
-(7, 'Ani Stephen 6', 'Fundamental course', 's@gmail.com', '', 'United Kingdom', 'ujzxilkxol', 'telephone', '', '2021-10-17 20:58:29.267033');
+INSERT INTO `user` (`id`, `name`, `course`, `email`, `phoneNum`, `country`, `message`, `radio_selection`, `password`, `created_at`, `auth`) VALUES
+(9, 'emmanuel', '', 'edeemmanuelchizurumoke@gmail.com', '19u98', '', 'ijdjdjoq', 'email', 'secret', '2021-12-14 22:44:25.457977', 'user'),
+(18, 'eee', '', 'eewe', 'we', 're', 'ererr', '', '4A1C35F52E', '2021-12-13 23:07:12.040984', 'reer'),
+(20, 'nuel', '', 'edeemmanuelchizurumoke@gmail.com', '08076626484', '', 'i would really like a discount', 'email', 'A3F5E9DC5F', '2021-12-14 22:46:12.862823', ''),
+(21, 'nuel', '', 'edeemmanuelchizurumoke@gmail.com', '43443', '', 'dffdfd', 'telephone', '88A5AE538B', '2021-12-14 22:38:37.911323', ''),
+(22, 'nuel', '', 'edeemmanuelchizurumoke@gmail.com', '08076626484', '', 'weweew', 'email', '9C5CCFF9E0', '2021-12-14 22:48:33.428187', ''),
+(23, 'nuel', '', 'edeemmanuelchizurumoke@gmail.com', '08076626484', '', 'ygg', 'telephone', '', '2021-12-14 22:53:20.008355', '');
 
 --
 -- Indexes for dumped tables
@@ -94,13 +106,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `billing`
 --
 ALTER TABLE `billing`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
